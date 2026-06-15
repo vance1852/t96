@@ -30,12 +30,13 @@ public class Team {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "team_members",
         joinColumns = @JoinColumn(name = "team_id"),
         inverseJoinColumns = @JoinColumn(name = "staff_id")
     )
+    @OrderBy("id")
     private List<Staff> members = new ArrayList<>();
 
     public Long getId() { return id; }

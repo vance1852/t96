@@ -56,10 +56,7 @@ public class StaffController {
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Long id) {
         return repo.findById(id)
-                .<ResponseEntity<?>>map(s -> {
-                    s.getSkills().size();
-                    return ResponseEntity.ok(s);
-                })
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("detail", "人员不存在")));
     }
 

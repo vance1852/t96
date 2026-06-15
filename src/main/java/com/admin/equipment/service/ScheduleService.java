@@ -38,6 +38,7 @@ public class ScheduleService {
     public record ScheduleValidationResult(boolean valid, List<ConflictError> errors,
                                            Map<String, Object> coverage) {}
 
+    @Transactional(readOnly = true)
     public ScheduleValidationResult validateSchedule(List<ShiftSchedule> schedules, LocalDate startDate, LocalDate endDate) {
         List<ConflictError> errors = new ArrayList<>();
         Set<Long> staffIds = schedules.stream().map(ShiftSchedule::getStaffId).collect(Collectors.toSet());
@@ -223,6 +224,7 @@ public class ScheduleService {
         return scheduleRepo.saveAll(schedules);
     }
 
+    @Transactional(readOnly = true)
     public List<ShiftSchedule> generateWeeklyAutoSchedule(Long teamId, LocalDate weekStart) {
         Optional<Team> teamOpt = teamRepo.findById(teamId);
         if (teamOpt.isEmpty()) return List.of();
@@ -273,6 +275,7 @@ public class ScheduleService {
         return schedules;
     }
 
+    @Transactional(readOnly = true)
     public Map<Long, Staff> getOnDutyStaffAt(LocalDate date, String shiftType) {
         List<ShiftSchedule> schedules;
         if (shiftType == null) {

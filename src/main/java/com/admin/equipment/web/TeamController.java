@@ -38,10 +38,7 @@ public class TeamController {
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Long id) {
         return repo.findById(id)
-                .<ResponseEntity<?>>map(t -> {
-                    t.getMembers().size();
-                    return ResponseEntity.ok(t);
-                })
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("detail", "班组不存在")));
     }
 

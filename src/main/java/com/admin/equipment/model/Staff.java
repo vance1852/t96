@@ -45,12 +45,13 @@ public class Staff {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "staff_skills",
         joinColumns = @JoinColumn(name = "staff_id"),
         inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
+    @OrderBy("id")
     private List<Skill> skills = new ArrayList<>();
 
     public Long getId() { return id; }

@@ -120,6 +120,7 @@ public class DispatchService {
         return dispatchBatch(openIds, operatorId);
     }
 
+    @Transactional(readOnly = true)
     public AlgorithmComparison compareAlgorithms(List<Long> workOrderIds) {
         List<WorkOrder> orders = workOrderRepo.findAllById(workOrderIds).stream()
                 .filter(w -> "open".equals(w.getStatus()))
